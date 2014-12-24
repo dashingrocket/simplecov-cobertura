@@ -1,6 +1,6 @@
 # simplecov-cobertura
 
-Ruby SimpleCov Cobertura Formatter.  
+[![Gem Version](https://badge.fury.io/rb/simplecov-cobertura.svg)](http://badge.fury.io/rb/simplecov-cobertura)
 
 Produces cobertura formatted xml from simplecov
 
