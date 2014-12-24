@@ -1,6 +1,8 @@
 # simplecov-cobertura
 
-TODO: Write a gem description
+Ruby SimpleCov Cobertura Formatter.  
+
+Produces cobertura formatted xml from simplecov
 
 ## Installation
 
@@ -20,11 +22,15 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'simplecov-cobertura'
+
+SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
+```
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/simplecov-cobertura/fork )
+1. Fork it ( https://github.com/dashingrocket/simplecov-cobertura/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
