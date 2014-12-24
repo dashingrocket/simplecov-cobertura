@@ -28,6 +28,12 @@ require 'simplecov-cobertura'
 SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
 ```
 
+## Warning
+This may be incomplete
+
+## Known Limitations
+* No support for branch coverage
+
 ## Contributing
 
 1. Fork it ( https://github.com/dashingrocket/simplecov-cobertura/fork )
