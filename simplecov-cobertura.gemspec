@@ -11,6 +11,7 @@ Gem::Specification.new do |spec|
   spec.description   = 'Produces Cobertura XML formatted output from SimpleCov'
   spec.homepage      = 'https://github.com/dashingrocket/simplecov-cobertura'
   spec.license       = 'Apache-2.0'
+  spec.required_ruby_version = '>= 1.9.3'
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
