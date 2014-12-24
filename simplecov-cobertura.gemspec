@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'simplecov-cobertura'
-  spec.version       = '0.0.1.beta.1'
+  spec.version       = '0.0.1.pre3'
   spec.authors       = ['Jesse Bowes']
   spec.email         = ['jbowes@dashingrocket.com']
   spec.summary       = 'SimpleCov Cobertura Formatter'
