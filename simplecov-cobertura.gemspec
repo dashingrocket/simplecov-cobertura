@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.email         = ['jbowes@dashingrocket.com']
   spec.summary       = 'SimpleCov Cobertura Formatter'
   spec.description   = 'Produces Cobertura XML formatted output from SimpleCov'
-  spec.homepage      = ''
-  spec.license       = 'Apache'
+  spec.homepage      = 'https://github.com/dashingrocket/simplecov-cobertrua'
+  spec.license       = 'Apache-2.0'
 
   spec.files         = `git ls-files -z`.split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
