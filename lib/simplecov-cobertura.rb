@@ -38,7 +38,9 @@ class SimpleCov::Formatter::CoberturaFormatter
           xml.package('name' => 'simplecov-cobertura', 'line-rate' => result.covered_percent/100, 'branch-rate' => 0, 'complexity' => 0) do
             xml.classes do
               result.files.each do |file|
-                xml.class_({'name' => File.basename(file.filename, '.*'), 'filename' => file.filename, 'line-rate' => file.covered_percent/100, 'branch-rate' => 0, 'complexity' => 0}) do
+                filename = file.filename
+                path = filename.gsub(SimpleCov.root, '.')
+                xml.class_({'name' => File.basename(filename, '.*'), 'filename' => path, 'line-rate' => file.covered_percent/100, 'branch-rate' => 0, 'complexity' => 0}) do
                   xml.methods
                   xml.lines do
                     file.covered_lines.each do |line|
