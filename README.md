@@ -34,7 +34,6 @@ Tested in a CI environment against the following Ruby versions:
 * ruby-head
 * 2.2.0
 * 2.1.5
-* 2.0.0
 * 1.9.3
 
 ## Known Limitations
