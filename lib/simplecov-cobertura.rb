@@ -23,7 +23,7 @@ class SimpleCov::Formatter::CoberturaFormatter
       
       root_dir = SimpleCov.root
 
-      xml.coverage ({ 'line-rate' => result.covered_percent/100,
+      xml.coverage ({ 'line-rate' => (result.covered_percent/100).round(2),
           'branch-rate' => 0,
           'lines-covered' => result.covered_lines,
           'lines-valid' => result.covered_lines + result.missed_lines,
@@ -38,7 +38,7 @@ class SimpleCov::Formatter::CoberturaFormatter
         end
         
         xml.packages do
-          xml.package('name' => 'simplecov-cobertura', 'line-rate' => result.covered_percent/100, 'branch-rate' => 0, 'complexity' => 0) do
+          xml.package('name' => 'simplecov-cobertura', 'line-rate' => (result.covered_percent/100).round(2), 'branch-rate' => 0, 'complexity' => 0) do
             xml.classes do
               result.files.each do |file|
                 filename = file.filename
@@ -46,8 +46,10 @@ class SimpleCov::Formatter::CoberturaFormatter
                 xml.class_({'name' => File.basename(filename, '.*'), 'filename' => path, 'line-rate' => file.covered_percent/100, 'branch-rate' => 0, 'complexity' => 0}) do
                   xml.methods
                   xml.lines do
-                    file.covered_lines.each do |line|
-                      xml.line('number' => line.line_number, 'branch' => false, 'hits' => line.coverage)
+                    file.lines.each do |line|
+                      if line.covered? || line.missed?
+                        xml.line('number' => line.line_number, 'branch' => false, 'hits' => line.coverage)
+                      end
                     end
                   end
                 end
