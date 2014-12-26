@@ -1,0 +1,18 @@
+language: ruby
+
+build_image: shippableimages/ubuntu1404_ruby
+
+rvm:
+  - 2.1.5
+  - 2.0.0
+  - 1.9.3
+  
+env:
+  - CI_REPORTS=shippable/testresults COVERAGE_REPORTS=shippable/codecoverage
+  
+notifications:
+  email:
+    recipients:
+      - jbowes@dashingrocket.com
+    on_success: change
+    on_failure: always
