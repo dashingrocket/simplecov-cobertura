@@ -1,6 +1,10 @@
 require 'test/unit'
 require 'simplecov-cobertura'
 
+require 'open-uri'
+require 'libxml'
+include LibXML
+
 class CoberturaFormatterTest < Test::Unit::TestCase
 
   def setup
@@ -21,7 +25,10 @@ class CoberturaFormatterTest < Test::Unit::TestCase
   
   def test_format_dtd_validates
     xml = @formatter.format(@result)
-    doc = Nokogiri::XML xml
-    doc.validate
+
+    dtd_text = open(SimpleCov::Formatter::CoberturaFormatter::DTD_URL) { |io| io.read }
+    dtd = XML::Dtd.new(dtd_text)
+    doc = XML::Document.string(xml)
+    assert_true doc.validate(dtd)
   end
 end
