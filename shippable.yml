@@ -3,7 +3,7 @@ language: ruby
 rvm:
   - 2.1
   - 2.0.0
-  - 1.9.3
+  - 1.9
   
 env:
   - CI_REPORTS=shippable/testresults COVERAGE_REPORTS=shippable/codecoverage
