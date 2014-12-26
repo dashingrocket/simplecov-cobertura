@@ -3,7 +3,6 @@ require 'simplecov-cobertura'
 
 require 'open-uri'
 require 'libxml'
-include LibXML
 
 class CoberturaFormatterTest < Test::Unit::TestCase
 
@@ -27,8 +26,8 @@ class CoberturaFormatterTest < Test::Unit::TestCase
     xml = @formatter.format(@result)
 
     dtd_text = open(SimpleCov::Formatter::CoberturaFormatter::DTD_URL) { |io| io.read }
-    dtd = XML::Dtd.new(dtd_text)
-    doc = XML::Document.string(xml)
+    dtd = LibXML::XML::Dtd.new(dtd_text)
+    doc = LibXML::XML::Document.string(xml)
     assert_true doc.validate(dtd)
   end
 end
