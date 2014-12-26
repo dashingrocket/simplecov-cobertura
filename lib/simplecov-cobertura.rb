@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'simplecov'
 
 class SimpleCov::Formatter::CoberturaFormatter
   RESULT_FILE_NAME = 'coverage.xml'
