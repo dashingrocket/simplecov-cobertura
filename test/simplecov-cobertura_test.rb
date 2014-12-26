@@ -1,13 +1,12 @@
 require 'test/unit'
-require 'simplecov-cobertura'
-
-require 'open-uri'
 require 'libxml'
+require 'open-uri'
+require 'simplecov-cobertura'
 
 class CoberturaFormatterTest < Test::Unit::TestCase
 
   def setup
-    @result = SimpleCov.result
+    @result = SimpleCov::Result.new("#{__FILE__}" => [1,2])
     @formatter = SimpleCov::Formatter::CoberturaFormatter.new
   end
 
@@ -24,6 +23,8 @@ class CoberturaFormatterTest < Test::Unit::TestCase
   
   def test_format_dtd_validates
     xml = @formatter.format(@result)
+    
+    STDERR.puts xml
 
     dtd_text = open(SimpleCov::Formatter::CoberturaFormatter::DTD_URL) { |io| io.read }
     dtd = LibXML::XML::Dtd.new(dtd_text)
