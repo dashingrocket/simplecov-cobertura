@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'simplecov-cobertura'
-  spec.version       = '0.0.1.pre5'
+  spec.version       = '0.0.1.pre6'
   spec.authors       = ['Jesse Bowes']
   spec.email         = ['jbowes@dashingrocket.com']
   spec.summary       = 'SimpleCov Cobertura Formatter'
@@ -23,5 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'ci_reporter_test_unit'
   
   spec.add_runtime_dependency 'nokogiri', '~> 1.6'
-  spec.add_runtime_dependency 'simplecov'
+  spec.add_runtime_dependency 'simplecov', '~> 0.8'
 end
