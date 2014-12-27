@@ -1,4 +1,4 @@
-# simplecov-cobertura [![Build Status](https://api.shippable.com/projects/549b1fbbd46935d5fbc0f9f3/badge?branchName=master)](https://app.shippable.com/projects/549b1fbbd46935d5fbc0f9f3/builds/latest) [![Gem Version](https://badge.fury.io/rb/simplecov-cobertura.svg)](http://badge.fury.io/rb/simplecov-cobertura)
+# simplecov-cobertura [![Build Status](https://api.shippable.com/projects/549b1fbbd46935d5fbc0f9f3/badge?branchName=master)](https://app.shippable.com/projects/549b1fbbd46935d5fbc0f9f3/builds/latest) [![Gem Version](https://badge.fury.io/rb/simplecov-cobertura.svg)](http://badge.fury.io/rb/simplecov-cobertura) [![Downloads](http://ruby-gem-downloads-badge.herokuapp.com/simplecov-cobertura?type=total)](https://rubygems.org/gems/simplecov-cobertura)
 
 Produces [Cobertura](http://cobertura.sourceforge.net/) formatted XML from [SimpleCov](https://github.com/colszowka/simplecov).
 
