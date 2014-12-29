@@ -5,6 +5,9 @@ rvm:
   - 2.0.0
   - 1.9
   
+before_script:
+  - rvm get stable
+  
 env:
   - CI_REPORTS=shippable/testresults COVERAGE_REPORTS=shippable/codecoverage
   
