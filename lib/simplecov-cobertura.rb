@@ -10,15 +10,13 @@ class SimpleCov::Formatter::CoberturaFormatter
     
     result_path = File.join( SimpleCov.coverage_path, RESULT_FILE_NAME )
     File.write(result_path, xml)
-    
     puts "Coverage report generated for #{result.command_name} to #{result_path}"
-    
-    return xml
+    xml
   end
   
   private
   def result_to_xml(result)
-    doc = LibXML::XML::Document.new()
+    doc = LibXML::XML::Document.new
     doc.root = LibXML::XML::Node.new('coverage')
     coverage = doc.root
 
@@ -38,7 +36,7 @@ class SimpleCov::Formatter::CoberturaFormatter
       classes << class_ = LibXML::XML::Node.new('class')
       set_class_attributes(class_, file)
 
-      class_ << methods = LibXML::XML::Node.new('methods')
+      class_ << LibXML::XML::Node.new('methods')
       class_ << lines = LibXML::XML::Node.new('lines')
 
       file.lines.each do |file_line|
@@ -74,7 +72,7 @@ class SimpleCov::Formatter::CoberturaFormatter
   
   def set_class_attributes(class_, file)
     filename = file.filename
-    path = filename.gsub(File.join(SimpleCov.root, ''), '')
+    path = filename[SimpleCov.root.length+1..-1]
     class_['name'] = File.basename(filename, '.*')
     class_['filename'] = path
     class_['line-rate'] = (file.covered_percent/100).round(2).to_s

@@ -24,8 +24,6 @@ class CoberturaFormatterTest < Test::Unit::TestCase
   def test_format_dtd_validates
     xml = @formatter.format(@result)
     
-    STDERR.puts xml
-    
     dtd_text = open(SimpleCov::Formatter::CoberturaFormatter::DTD_URL) { |io| io.read }
     dtd = LibXML::XML::Dtd.new(dtd_text)
     doc = LibXML::XML::Document.string(xml)
