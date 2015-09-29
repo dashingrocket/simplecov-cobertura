@@ -4,12 +4,12 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'simplecov-cobertura'
-  spec.version       = '1.0.3.alpha.0'
-  spec.authors       = ['Jesse Bowes']
-  spec.email         = ['jbowes@dashingrocket.com']
+  spec.version       = '1.0.3.alpha.1'
+  spec.authors       = ['Ivailo Petrov']
+  spec.email         = ['ivailop@s2technologies.com']
   spec.summary       = 'SimpleCov Cobertura Formatter'
   spec.description   = 'Produces Cobertura XML formatted output from SimpleCov'
-  spec.homepage      = 'https://github.com/dashingrocket/simplecov-cobertura'
+  spec.homepage      = 'https://github.com/s2technologies/simplecov-cobertura'
   spec.license       = 'Apache-2.0'
   spec.required_ruby_version = '>= 1.9.3'
 
