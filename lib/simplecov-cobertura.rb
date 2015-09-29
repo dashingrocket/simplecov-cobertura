@@ -27,24 +27,27 @@ class SimpleCov::Formatter::CoberturaFormatter
     source << SimpleCov.root
 
     coverage << packages = LibXML::XML::Node.new('packages')
-    packages << package = LibXML::XML::Node.new('package')
-    set_package_attributes(package, result)
 
-    package << classes = LibXML::XML::Node.new('classes')
+    result.groups.map do |name, files|
+        packages << package = LibXML::XML::Node.new('package')
+        set_package_attributes(package, name, files)
 
-    result.files.each do |file|
-      classes << class_ = LibXML::XML::Node.new('class')
-      set_class_attributes(class_, file)
+        package << classes = LibXML::XML::Node.new('classes')
 
-      class_ << LibXML::XML::Node.new('methods')
-      class_ << lines = LibXML::XML::Node.new('lines')
+        files.each do |file|
+          classes << class_ = LibXML::XML::Node.new('class')
+          set_class_attributes(class_, file)
 
-      file.lines.each do |file_line|
-        if file_line.covered? || file_line.missed?
-          lines << line = LibXML::XML::Node.new('line')
-          set_line_attributes(line, file_line)
+          class_ << LibXML::XML::Node.new('methods')
+          class_ << lines = LibXML::XML::Node.new('lines')
+
+          file.lines.each do |file_line|
+            if file_line.covered? || file_line.missed?
+              lines << line = LibXML::XML::Node.new('line')
+              set_line_attributes(line, file_line)
+            end
+          end
         end
-      end
     end
 
     set_xml_head(doc.to_s)
@@ -63,9 +66,9 @@ class SimpleCov::Formatter::CoberturaFormatter
     coverage['timestamp'] = Time.now.to_i.to_s
   end
   
-  def set_package_attributes(package, result)
-    package['name'] = 'simplecov-cobertura'
-    package['line-rate'] = (result.covered_percent/100).round(2).to_s
+  def set_package_attributes(package, name, files)
+    package['name'] = name
+    package['line-rate'] = (files.covered_percent/100).round(2).to_s
     package['branch-rate'] = '0'
     package['complexity'] = '0'
   end
