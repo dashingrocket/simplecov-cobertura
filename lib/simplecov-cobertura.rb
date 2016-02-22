@@ -1,4 +1,5 @@
-require 'libxml'
+require 'rexml/document'
+require 'rexml/element'
 require 'simplecov'
 
 class SimpleCov::Formatter::CoberturaFormatter
@@ -7,90 +8,87 @@ class SimpleCov::Formatter::CoberturaFormatter
 
   def format(result)
     xml = result_to_xml result
-    
     result_path = File.join( SimpleCov.coverage_path, RESULT_FILE_NAME )
     File.write(result_path, xml)
     puts "Coverage report generated for #{result.command_name} to #{result_path}"
     xml
   end
-  
+
   private
   def result_to_xml(result)
-    doc = LibXML::XML::Document.new
-    doc.root = LibXML::XML::Node.new('coverage')
+    doc = REXML::Document.new set_xml_head
+    doc.add_element REXML::Element.new('coverage')
     coverage = doc.root
 
     set_coverage_attributes(coverage, result)
 
-    coverage << sources = LibXML::XML::Node.new('sources')
-    sources << source = LibXML::XML::Node.new('source')
-    source << SimpleCov.root
+    coverage.add_element(sources = REXML::Element.new('sources'))
+    sources.add_element(source = REXML::Element.new('source'))
+    source.text = SimpleCov.root
 
-    coverage << packages = LibXML::XML::Node.new('packages')
-    packages << package = LibXML::XML::Node.new('package')
+    coverage.add_element(packages = REXML::Element.new('packages'))
+    packages.add_element(package = REXML::Element.new('package'))
     set_package_attributes(package, result)
 
-    package << classes = LibXML::XML::Node.new('classes')
+    package.add_element(classes = REXML::Element.new('classes'))
 
     result.files.each do |file|
-      classes << class_ = LibXML::XML::Node.new('class')
+      classes.add_element(class_ = REXML::Element.new('class'))
       set_class_attributes(class_, file)
 
-      class_ << LibXML::XML::Node.new('methods')
-      class_ << lines = LibXML::XML::Node.new('lines')
+      class_.add_element(REXML::Element.new('methods'))
+      class_.add_element(lines = REXML::Element.new('lines'))
 
       file.lines.each do |file_line|
         if file_line.covered? || file_line.missed?
-          lines << line = LibXML::XML::Node.new('line')
+          lines.add_element(line = REXML::Element.new('line'))
           set_line_attributes(line, file_line)
         end
       end
     end
 
-    set_xml_head(doc.to_s)
+    doc.to_s
   end
-  
+
   def set_coverage_attributes(coverage, result)
-    coverage['line-rate'] = (result.covered_percent/100).round(2).to_s
-    coverage['branch-rate'] = '0'
-    coverage['lines-covered'] = result.covered_lines.to_s
-    coverage['lines-valid'] = (result.covered_lines + result.missed_lines).to_s
-    coverage['branches-covered'] = '0'
-    coverage['branches-valid'] = '0'
-    coverage['branch-rate'] = '0'
-    coverage['complexity'] = '0'
-    coverage['version'] = '0'
-    coverage['timestamp'] = Time.now.to_i.to_s
+    coverage.attributes['line-rate'] = (result.covered_percent/100).round(2).to_s
+    coverage.attributes['branch-rate'] = '0'
+    coverage.attributes['lines-covered'] = result.covered_lines.to_s
+    coverage.attributes['lines-valid'] = (result.covered_lines + result.missed_lines).to_s
+    coverage.attributes['branches-covered'] = '0'
+    coverage.attributes['branches-valid'] = '0'
+    coverage.attributes['branch-rate'] = '0'
+    coverage.attributes['complexity'] = '0'
+    coverage.attributes['version'] = '0'
+    coverage.attributes['timestamp'] = Time.now.to_i.to_s
   end
-  
+
   def set_package_attributes(package, result)
-    package['name'] = 'simplecov-cobertura'
-    package['line-rate'] = (result.covered_percent/100).round(2).to_s
-    package['branch-rate'] = '0'
-    package['complexity'] = '0'
+    package.attributes['name'] = 'simplecov-cobertura'
+    package.attributes['line-rate'] = (result.covered_percent/100).round(2).to_s
+    package.attributes['branch-rate'] = '0'
+    package.attributes['complexity'] = '0'
   end
-  
+
   def set_class_attributes(class_, file)
     filename = file.filename
     path = filename[SimpleCov.root.length+1..-1]
-    class_['name'] = File.basename(filename, '.*')
-    class_['filename'] = path
-    class_['line-rate'] = (file.covered_percent/100).round(2).to_s
-    class_['branch-rate'] = '0'
-    class_['complexity'] = '0'
+    class_.attributes['name'] = File.basename(filename, '.*')
+    class_.attributes['filename'] = path
+    class_.attributes['line-rate'] = (file.covered_percent/100).round(2).to_s
+    class_.attributes['branch-rate'] = '0'
+    class_.attributes['complexity'] = '0'
   end
-  
+
   def set_line_attributes(line, file_line)
-    line['number'] = file_line.line_number.to_s
-    line['branch'] = 'false'
-    line['hits'] = file_line.coverage.to_s
+    line.attributes['number'] = file_line.line_number.to_s
+    line.attributes['branch'] = 'false'
+    line.attributes['hits'] = file_line.coverage.to_s
   end
-  
-  def set_xml_head(xml)
-    lines = xml.split("\n")
-    lines.insert(1, "<!DOCTYPE coverage SYSTEM \"#{DTD_URL}\">")
-    lines.insert(2, '<!-- Generated by simplecov-cobertura -->')
+
+  def set_xml_head(lines=[])
+    lines << "<!DOCTYPE coverage SYSTEM \"#{DTD_URL}\">"
+    lines << '<!-- Generated by simplecov-cobertura -->'
     lines.join("\n")
   end
 end
-
