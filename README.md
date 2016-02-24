@@ -44,6 +44,10 @@ If you get an error about not being able to install the libxml-ruby gem, do the 
     
     $ sudo apt-get install libxml2-dev
 
+## Contributors
+  * Jesse Bowes
+  * Sean Clemmer
+
 ## Contributing
 
 1. Fork it ( https://github.com/dashingrocket/simplecov-cobertura/fork )
