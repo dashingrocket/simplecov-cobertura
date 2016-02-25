@@ -1,9 +1,9 @@
 require 'test/unit'
-#require 'libxml'
 
 require 'nokogiri'
 
 require 'open-uri'
+require 'simplecov'
 require 'simplecov-cobertura'
 
 class CoberturaFormatterTest < Test::Unit::TestCase
