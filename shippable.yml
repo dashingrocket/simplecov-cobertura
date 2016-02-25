@@ -7,6 +7,8 @@ rvm:
   - 2.1.5
   - 2.0.0
   - 1.9.3
+  - jruby-head
+  - jruby-19mode
   
 env:
   - CI_REPORTS=shippable/testresults COVERAGE_REPORTS=shippable/codecoverage
