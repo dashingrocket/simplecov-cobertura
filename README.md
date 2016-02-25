@@ -60,7 +60,7 @@ Testing requres the libxml-ruby gem.  If you get an error about not being able t
 5. Create a new Pull Request
 
 ## License
-Copyright 2014 Dashing Rocket, Ltd.
+Copyright 2016 Dashing Rocket, Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
