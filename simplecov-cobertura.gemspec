@@ -2,9 +2,11 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
+require 'simplecov-cobertura'
+
 Gem::Specification.new do |spec|
   spec.name          = 'simplecov-cobertura'
-  spec.version       = '1.0.3.beta.1'
+  spec.version       = SimpleCov::Formatter::CoberturaFormatter::VERSION
   spec.authors       = ['Jesse Bowes']
   spec.email         = ['jbowes@dashingrocket.com']
   spec.summary       = 'SimpleCov Cobertura Formatter'
@@ -21,7 +23,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.7'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'ci_reporter_test_unit', '~> 1.0'
-  spec.add_development_dependency 'libxml-ruby', '~> 2.7'
+  spec.add_development_dependency 'nokogiri'
 
   spec.add_runtime_dependency 'simplecov', '~> 0.8'
 end
