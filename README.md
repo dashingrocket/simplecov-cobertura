@@ -42,11 +42,6 @@ Tested in a CI environment against the following Ruby versions:
 ## Known Limitations
 * No support for branch coverage
 
-## Troubleshooting
-Testing requres the libxml-ruby gem.  If you get an error about not being able to install the libxml-ruby gem, do the following
-    
-    $ sudo apt-get install libxml2-dev
-
 ## Contributors
   * Jesse Bowes
   * Sean Clemmer
