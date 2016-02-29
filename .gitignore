@@ -13,5 +13,5 @@
 *.a
 mkmf.log
 
-simplecov-cobertura.iml
+*.iml
 .idea

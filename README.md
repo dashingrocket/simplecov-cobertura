@@ -32,6 +32,9 @@ SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
 
 ## Continuous Integration
 Tested in a CI environment against the following Ruby versions:
+* ruby-head
+* 2.3
+* 2.2
 * 2.1
 * 2.0.0
 * 1.9
@@ -39,10 +42,9 @@ Tested in a CI environment against the following Ruby versions:
 ## Known Limitations
 * No support for branch coverage
 
-## Troubleshooting
-If you get an error about not being able to install the libxml-ruby gem, do the following
-    
-    $ sudo apt-get install libxml2-dev
+## Contributors
+  * Jesse Bowes
+  * Sean Clemmer
 
 ## Contributing
 
@@ -53,7 +55,7 @@ If you get an error about not being able to install the libxml-ruby gem, do the 
 5. Create a new Pull Request
 
 ## License
-Copyright 2014 Dashing Rocket, Ltd.
+Copyright 2016 Dashing Rocket, Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
