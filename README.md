@@ -38,6 +38,7 @@ Tested in a CI environment against the following Ruby versions:
 * 2.1
 * 2.0.0
 * 1.9
+* JRuby (1.9 mode)
 
 ## Known Limitations
 * No support for branch coverage
@@ -45,6 +46,7 @@ Tested in a CI environment against the following Ruby versions:
 ## Contributors
   * Jesse Bowes
   * Sean Clemmer
+  * Ivailo Petrov
 
 ## Contributing
 
