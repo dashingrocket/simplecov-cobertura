@@ -37,22 +37,25 @@ module SimpleCov
         source.text = SimpleCov.root
 
         coverage.add_element(packages = REXML::Element.new('packages'))
-        packages.add_element(package = REXML::Element.new('package'))
-        set_package_attributes(package, result)
 
-        package.add_element(classes = REXML::Element.new('classes'))
+        result.groups.map do |name, files|
+          packages.add_element(package = REXML::Element.new('package'))
+          set_package_attributes(package, name, files)
 
-        result.files.each do |file|
-          classes.add_element(class_ = REXML::Element.new('class'))
-          set_class_attributes(class_, file)
+          package.add_element(classes = REXML::Element.new('classes'))
 
-          class_.add_element(REXML::Element.new('methods'))
-          class_.add_element(lines = REXML::Element.new('lines'))
+          files.each do |file|
+            classes.add_element(class_ = REXML::Element.new('class'))
+            set_class_attributes(class_, file)
 
-          file.lines.each do |file_line|
-            if file_line.covered? || file_line.missed?
-              lines.add_element(line = REXML::Element.new('line'))
-              set_line_attributes(line, file_line)
+            class_.add_element(REXML::Element.new('methods'))
+            class_.add_element(lines = REXML::Element.new('lines'))
+
+            file.lines.each do |file_line|
+              if file_line.covered? || file_line.missed?
+                lines.add_element(line = REXML::Element.new('line'))
+                set_line_attributes(line, file_line)
+              end
             end
           end
         end
@@ -73,8 +76,8 @@ module SimpleCov
         coverage.attributes['timestamp'] = Time.now.to_i.to_s
       end
 
-      def set_package_attributes(package, result)
-        package.attributes['name'] = 'simplecov-cobertura'
+      def set_package_attributes(package, name, result)
+        package.attributes['name'] = name
         package.attributes['line-rate'] = (result.covered_percent/100).round(2).to_s
         package.attributes['branch-rate'] = '0'
         package.attributes['complexity'] = '0'

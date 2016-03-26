@@ -17,6 +17,6 @@ cache: true
 notifications:
   email:
     recipients:
-      - jbowes@dashingrocket.com
+      - ivailop@s2technologies.com
     on_success: change
     on_failure: always
