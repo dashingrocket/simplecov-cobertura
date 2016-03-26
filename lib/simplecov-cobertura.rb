@@ -4,7 +4,7 @@ require 'rexml/element'
 module SimpleCov
   module Formatter
     class CoberturaFormatter
-      VERSION = '1.0.5-dev'
+      VERSION = '1.1.0-dev'
 
       RESULT_FILE_NAME = 'coverage.xml'
       DTD_URL = 'http://cobertura.sourceforge.net/xml/coverage-04.dtd'
@@ -38,7 +38,13 @@ module SimpleCov
 
         coverage.add_element(packages = REXML::Element.new('packages'))
 
-        result.groups.map do |name, files|
+        if result.groups.empty?
+          groups = {File.basename(SimpleCov.root) => result.files}
+        else
+          groups = result.groups
+        end
+
+        groups.map do |name, files|
           packages.add_element(package = REXML::Element.new('package'))
           set_package_attributes(package, name, files)
 
