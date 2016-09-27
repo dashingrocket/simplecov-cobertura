@@ -27,6 +27,7 @@ module SimpleCov
       private
       def result_to_xml(result)
         doc = REXML::Document.new set_xml_head
+        doc.context[:attribute_quote] = :quote
         doc.add_element REXML::Element.new('coverage')
         coverage = doc.root
 
