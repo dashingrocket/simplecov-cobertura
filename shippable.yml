@@ -1,6 +1,7 @@
 language: ruby
 
 rvm:
+  - ruby-head
   - 2.5.1
   - 2.4.2
   - 2.3.5
@@ -8,15 +9,3 @@ rvm:
   - 2.1.10
   - 1.9.3
   - jruby-19mode
-
-env:
-  - CI_REPORTS=shippable/testresults COVERAGE_REPORTS=shippable/codecoverage
-  
-cache: true
-  
-notifications:
-  email:
-    recipients:
-      - jbowes@dashingrocket.com
-    on_success: change
-    on_failure: always
