@@ -1,6 +1,5 @@
 require 'bundler/gem_tasks'
 require 'rake/testtask'
-require 'ci/reporter/rake/test_unit'
 
 Rake::TestTask.new do |t|
   t.libs << 'test'
@@ -8,4 +7,4 @@ Rake::TestTask.new do |t|
 end
 
 desc 'Run tests'
-task :default => ['ci:setup:testunit', :test]
+task :default => [:test]
