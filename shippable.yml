@@ -3,8 +3,13 @@ language: ruby
 rvm:
   - ruby-head
   - 2.5.1
-#  - 2.4.2
-#  - 2.3.5
+  - 2.4.2
+  - 2.3.5
+  - 2.2.8
+  - 2.1.10
+  - 1.9.3
+  - jruby-19mode
+
 
 before_install:
   - sudo apt-get update --fix-missing
