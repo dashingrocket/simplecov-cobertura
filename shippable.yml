@@ -5,3 +5,7 @@ rvm:
   - 2.5.1
 #  - 2.4.2
 #  - 2.3.5
+
+before_install:
+  - sudo apt-get update --fix-missing
+  - sudo apt-get -y install ca-certificates curl libcurl3 libcurl3-gnutls openssl libssl-dev libssl-doc libssl1.0.0
