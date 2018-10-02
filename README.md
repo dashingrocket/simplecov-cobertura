@@ -35,9 +35,9 @@ SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
 ## Continuous Integration
 Tested in a CI environment against the following Ruby versions:
 * ruby-head
-* 2.5.1
-* 2.4.2
-* 2.3.5
+* 2.5
+* 2.4
+* 2.3
 
 ## Known Limitations
 * No support for branch coverage
