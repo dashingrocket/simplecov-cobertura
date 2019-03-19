@@ -12,4 +12,5 @@ rvm:
 
 build:
   ci:
-    gem install bundler --version '~> 2.0'
+    - gem install bundler --version '~> 2.0'
+    - rake
