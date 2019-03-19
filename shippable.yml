@@ -9,3 +9,7 @@ rvm:
   - 2.1
   - 2.0
   - 1.9
+
+build:
+  ci:
+    gem install bundler --version '~> 2.0'
