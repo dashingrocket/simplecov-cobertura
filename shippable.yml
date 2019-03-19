@@ -13,4 +13,5 @@ rvm:
 build:
   ci:
     - gem install bundler --version '~> 2.0'
+    - bundle install --gemfile=$SHIPPABLE_GEMFILE $SHIPPABLE_BUNDLER_ARGS
     - rake
