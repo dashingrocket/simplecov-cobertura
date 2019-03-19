@@ -1,11 +1,13 @@
+require 'simplecov'
+
 require 'rexml/document'
 require 'rexml/element'
+
+require_relative 'simplecov-cobertura/version'
 
 module SimpleCov
   module Formatter
     class CoberturaFormatter
-      VERSION = '1.3.1-dev'
-
       RESULT_FILE_NAME = 'coverage.xml'
       DTD_URL = 'http://cobertura.sourceforge.net/xml/coverage-04.dtd'
 
