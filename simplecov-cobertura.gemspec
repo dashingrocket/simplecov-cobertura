@@ -21,9 +21,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'test-unit', '~> 3.2'
-  spec.add_development_dependency 'bundler', '~> 2.0'
   spec.add_development_dependency 'rake', '~> 12.0'
-  spec.add_development_dependency 'nokogiri', '< 1.7'
+  spec.add_development_dependency 'nokogiri', '~> 1.9'
 
   spec.add_dependency 'simplecov', '~> 0.8'
 end
