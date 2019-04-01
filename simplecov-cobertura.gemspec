@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'test-unit', '~> 3.2'
   spec.add_development_dependency 'rake', '~> 12.0'
-  spec.add_development_dependency 'nokogiri', '~> 1.9'
+  spec.add_development_dependency 'nokogiri', '~> 1.0'
 
   spec.add_dependency 'simplecov', '~> 0.8'
 end
