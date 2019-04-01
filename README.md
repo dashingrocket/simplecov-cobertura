@@ -32,10 +32,14 @@ SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
 
 ## Continuous Integration
 Tested in a CI environment against the following Ruby versions:
-* ruby-head
+* 2.6
 * 2.5
 * 2.4
 * 2.3
+* 2.2
+* 2.1
+* 2.0
+* 1.9
 
 ## Known Limitations
 * No support for branch coverage
@@ -57,7 +61,7 @@ Tested in a CI environment against the following Ruby versions:
 5. Create a new Pull Request
 
 ## License
-Copyright 2017 Dashing Rocket, Ltd.
+Copyright 2019 Dashing Rocket, Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

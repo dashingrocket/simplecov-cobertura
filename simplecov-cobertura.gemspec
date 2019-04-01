@@ -2,7 +2,7 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
-require 'simplecov-cobertura'
+require 'simplecov-cobertura/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'simplecov-cobertura'
@@ -21,9 +21,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'test-unit', '~> 3.2'
-  spec.add_development_dependency 'bundler', '~> 1.7'
   spec.add_development_dependency 'rake', '~> 12.0'
-  spec.add_development_dependency 'nokogiri', '< 1.7'
+  spec.add_development_dependency 'nokogiri', '~> 1.0'
 
   spec.add_dependency 'simplecov', '~> 0.8'
 end
