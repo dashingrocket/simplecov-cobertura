@@ -24,6 +24,13 @@ class CoberturaFormatterTest < Test::Unit::TestCase
     assert_equal(xml, IO.read(result_path))
   end
 
+  def test_terminal_output
+    output, _ = capture_output { @formatter.format(@result) }
+    result_path = File.join(SimpleCov.coverage_path, SimpleCov::Formatter::CoberturaFormatter::RESULT_FILE_NAME)
+    output_regex = /Coverage report generated for #{@result.command_name} to #{result_path}. (.*) covered./
+    assert_match(output_regex, output)
+  end
+
   def test_format_dtd_validates
     xml = @formatter.format(@result)
     options = Nokogiri::XML::ParseOptions::DTDLOAD
