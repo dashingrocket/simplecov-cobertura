@@ -21,8 +21,16 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'test-unit', '~> 3.2'
-  spec.add_development_dependency 'rake', '~> 12.0'
   spec.add_development_dependency 'nokogiri', '~> 1.0'
 
   spec.add_dependency 'simplecov', '~> 0.8'
+
+  if RUBY_VERSION < '2.0'
+    spec.add_dependency 'json', '< 2.3.0'
+    spec.add_development_dependency 'rake', '~> 12.0', '< 12.3'
+  elsif RUBY_VERSION < '2.2'
+    spec.add_development_dependency 'rake', '~> 12.0'
+  else
+    spec.add_development_dependency 'rake', '~> 13.0'
+  end
 end
