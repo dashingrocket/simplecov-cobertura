@@ -63,7 +63,7 @@ Tested in a CI environment against the following Ruby versions:
 5. Create a new Pull Request
 
 ## License
-Copyright 2019 Dashing Rocket, Ltd.
+Copyright 2020 Dashing Rocket, Ltd.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
