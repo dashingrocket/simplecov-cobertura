@@ -2,6 +2,7 @@ require 'simplecov'
 
 require 'rexml/document'
 require 'rexml/element'
+require 'pathname'
 
 require_relative 'simplecov-cobertura/version'
 
@@ -94,9 +95,8 @@ module SimpleCov
 
       def set_class_attributes(class_, file)
         filename = file.filename
-        path = filename[SimpleCov.root.length+1..-1]
         class_.attributes['name'] = File.basename(filename, '.*')
-        class_.attributes['filename'] = path
+        class_.attributes['filename'] = resolve_filename(filename)
         class_.attributes['line-rate'] = (file.covered_percent/100).round(2).to_s
         class_.attributes['branch-rate'] = '0'
         class_.attributes['complexity'] = '0'
@@ -116,7 +116,15 @@ module SimpleCov
       end
 
       def coverage_output(result)
-        "#{result.covered_lines} / #{result.covered_lines + result.missed_lines} LOC (#{result.covered_percent.round(2)}%) covered." 
+        "#{result.covered_lines} / #{result.covered_lines + result.missed_lines} LOC (#{result.covered_percent.round(2)}%) covered."
+      end
+
+      def resolve_filename(filename)
+        Pathname.new(filename).relative_path_from(project_root).to_s
+      end
+
+      def project_root
+        @project_root ||= Pathname.new(SimpleCov.root)
       end
     end
   end
