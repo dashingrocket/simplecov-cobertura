@@ -135,4 +135,21 @@ class CoberturaFormatterTest < Test::Unit::TestCase
     assert_equal 'false', last_line.attribute('branch').value
     assert_equal '2', last_line.attribute('hits').value
   end
+
+  def test_supports_root_project_path
+    old_root = SimpleCov.root
+    SimpleCov.root('/')
+    expected_base = old_root[1..-1] # Remove leading "/"
+
+    xml = @formatter.format(@result)
+    doc = Nokogiri::XML::Document.parse(xml)
+
+    classes = doc.xpath '/coverage/packages/package/classes/class'
+    assert_equal 1, classes.length
+    clazz = classes.first
+    assert_equal 'simplecov-cobertura_test', clazz.attribute('name').value
+    assert_equal "#{expected_base}/test/simplecov-cobertura_test.rb", clazz.attribute('filename').value
+  ensure
+    SimpleCov.root(old_root)
+  end
 end
