@@ -53,6 +53,7 @@ Tested in a CI environment against the following Ruby versions:
   * Denis <Zaratan> Pasin
   * Jesper Rønn-Jensen
   * Pramod Shinde
+  * Magnus Bergmark
 
 ## Contributing
 
