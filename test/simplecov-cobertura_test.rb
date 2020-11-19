@@ -7,9 +7,8 @@ require 'simplecov'
 require 'simplecov-cobertura'
 
 class CoberturaFormatterTest < Test::Unit::TestCase
-
   def setup
-    @result = SimpleCov::Result.new("#{__FILE__}" => [1,2])
+    @result = SimpleCov::Result.new({ "#{__FILE__}" => [1,2] })
     @formatter = SimpleCov::Formatter::CoberturaFormatter.new
   end
 
