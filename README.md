@@ -54,6 +54,7 @@ Tested in a CI environment against the following Ruby versions:
   * Jesper Rønn-Jensen
   * Pramod Shinde
   * Magnus Bergmark
+  * Peter Leitzen
 
 ## Contributing
 
