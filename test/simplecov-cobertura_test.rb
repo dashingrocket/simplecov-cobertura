@@ -8,7 +8,13 @@ require 'simplecov-cobertura'
 
 class CoberturaFormatterTest < Test::Unit::TestCase
   def setup
-    @result = SimpleCov::Result.new({ "#{__FILE__}" => [1,2] })
+    coverage_data =
+      if Gem.loaded_specs['simplecov'].version >= Gem::Version.new('0.18')
+        { lines: [1, 2] }
+      else
+        [1, 2]
+      end
+    @result = SimpleCov::Result.new({ __FILE__ => coverage_data })
     @formatter = SimpleCov::Formatter::CoberturaFormatter.new
   end
 
@@ -136,6 +142,7 @@ class CoberturaFormatterTest < Test::Unit::TestCase
   end
 
   def test_supports_root_project_path
+    pend 'Creating files at `/` is not permitted in CI'
     old_root = SimpleCov.root
     SimpleCov.root('/')
     expected_base = old_root[1..-1] # Remove leading "/"

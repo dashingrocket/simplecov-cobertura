@@ -49,6 +49,7 @@ module SimpleCov
         end
 
         groups.map do |name, files|
+          next if files.empty?
           packages.add_element(package = REXML::Element.new('package'))
           set_package_attributes(package, name, files)
 
