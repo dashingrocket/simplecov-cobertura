@@ -1,15 +1,22 @@
 require 'test/unit'
-
 require 'nokogiri'
-
 require 'open-uri'
+require 'coverage'
 require 'simplecov'
 require 'simplecov-cobertura'
 
 class CoberturaFormatterTest < Test::Unit::TestCase
   def setup
-    @result = SimpleCov::Result.new({ "#{__FILE__}" => [1,2] })
+    @result = SimpleCov::Result.new(sample_coverage_data)
     @formatter = SimpleCov::Formatter::CoberturaFormatter.new
+  end
+
+  def sample_coverage_data
+    if Coverage.method(:start).arity.zero?
+      {__FILE__ => [1, 2]}
+    else
+      {__FILE__ => {'lines' => [1, 2]}}
+    end
   end
 
   def teardown
