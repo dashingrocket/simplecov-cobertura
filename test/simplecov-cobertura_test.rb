@@ -23,6 +23,15 @@ class CoberturaFormatterTest < Test::Unit::TestCase
     assert_equal(xml, IO.read(result_path))
   end
 
+  def test_custom_output_filename
+    custom_filename = 'foo.xml'
+    formatter = SimpleCov::Formatter::CoberturaFormatter.new(filename: custom_filename)
+    xml = formatter.new.format(@result)
+    result_path = File.join(SimpleCov.coverage_path, custom_filename)
+    assert_not_empty(xml)
+    assert_equal(xml, IO.read(result_path))
+  end
+
   def test_terminal_output
     output, _ = capture_output { @formatter.format(@result) }
     result_path = File.join(SimpleCov.coverage_path, SimpleCov::Formatter::CoberturaFormatter::RESULT_FILE_NAME)

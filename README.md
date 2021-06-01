@@ -30,6 +30,31 @@ require 'simplecov-cobertura'
 SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
 ```
 
+Run your test suite. Coverage information will be saved to `coverage/coverage.xml` by default.
+
+### Parallel Testing
+
+If you use `parallel_tests` gem, then each test process writes coverage information to `coverage/coverage.xml` file at the end of the execution. The last process overwrites the file after all previous processes. Only coverage of the last process remains.
+
+A solution is to write each process coverage to its own file. Similar to how test database names are formed - with the `TEST_ENV_NUMBER` environment variable - you can set coverage output file name:
+
+```ruby
+SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter.new(filename: "coverage#{ENV['TEST_ENV_NUMBER']}.xml")
+```
+
+After running 4 parallel test processes, you will get 4 coverage reports:
+
+```
+coverage/coverage1.xml
+coverage/coverage2.xml
+coverage/coverage3.xml
+coverage/coverage4.xml
+```
+
+NOTE: Set the `PARALLEL_TEST_FIRST_IS_1` environment variable to get this numbering. Without it, the first process will be unnumbered.
+
+If you run a single test process without the parallel tasks, you will still get a single `coverage/coverage.xml` file.
+
 ## Continuous Integration
 Tested in a CI environment against the following Ruby versions:
 * 2.7

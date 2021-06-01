@@ -12,9 +12,17 @@ module SimpleCov
       RESULT_FILE_NAME = 'coverage.xml'
       DTD_URL = 'http://cobertura.sourceforge.net/xml/coverage-04.dtd'
 
+      def initialize(filename: RESULT_FILE_NAME)
+        @filename = filename
+      end
+
+      def new
+        self
+      end
+
       def format(result)
         xml_doc = result_to_xml result
-        result_path = File.join(SimpleCov.coverage_path, RESULT_FILE_NAME)
+        result_path = File.join(SimpleCov.coverage_path, @filename)
 
         formatter = REXML::Formatters::Pretty.new
         formatter.compact = true
