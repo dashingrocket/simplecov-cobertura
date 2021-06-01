@@ -12,8 +12,8 @@ module SimpleCov
       RESULT_FILE_NAME = 'coverage.xml'
       DTD_URL = 'http://cobertura.sourceforge.net/xml/coverage-04.dtd'
 
-      def initialize(filename: RESULT_FILE_NAME)
-        @filename = filename
+      def initialize(options = {})
+        @filename = options[:filename] || RESULT_FILE_NAME
       end
 
       def new
