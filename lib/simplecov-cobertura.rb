@@ -65,6 +65,7 @@ module SimpleCov
               if file_line.covered? || file_line.missed?
                 lines.add_element(line = REXML::Element.new('line'))
                 set_line_attributes(line, file_line)
+                set_branch_attributes(line, file_line, file.branches)
               end
             end
           end
@@ -74,38 +75,60 @@ module SimpleCov
       end
 
       def set_coverage_attributes(coverage, result)
-        coverage.attributes['line-rate'] = (result.covered_percent/100).round(2).to_s
-        coverage.attributes['branch-rate'] = '0'
-        coverage.attributes['lines-covered'] = result.covered_lines.to_s
-        coverage.attributes['lines-valid'] = (result.covered_lines + result.missed_lines).to_s
-        coverage.attributes['branches-covered'] = '0'
-        coverage.attributes['branches-valid'] = '0'
-        coverage.attributes['branch-rate'] = '0'
+        ls = result.coverage_statistics[:line]
+        bs = result.coverage_statistics[:branch]
+
+        coverage.attributes['line-rate'] = extract_rate(ls.percent)
+        coverage.attributes['lines-covered'] = ls.covered.to_s.to_s
+        coverage.attributes['lines-valid'] = ls.total.to_s.to_s
+        coverage.attributes['branches-covered'] = bs.covered.to_s
+        coverage.attributes['branches-valid'] = bs.total.to_s
+        coverage.attributes['branch-rate'] = extract_rate(bs.percent)
         coverage.attributes['complexity'] = '0'
         coverage.attributes['version'] = '0'
         coverage.attributes['timestamp'] = Time.now.to_i.to_s
       end
 
       def set_package_attributes(package, name, result)
+        ls = result.coverage_statistics[:line]
+        bs = result.coverage_statistics[:branch]
+
         package.attributes['name'] = name
-        package.attributes['line-rate'] = (result.covered_percent/100).round(2).to_s
-        package.attributes['branch-rate'] = '0'
+        package.attributes['line-rate'] = extract_rate(ls.percent)
+        package.attributes['branch-rate'] = extract_rate(bs.percent)
         package.attributes['complexity'] = '0'
       end
 
       def set_class_attributes(class_, file)
+        ls = file.coverage_statistics[:line]
+        bs = file.coverage_statistics[:branch]
+
         filename = file.filename
         class_.attributes['name'] = File.basename(filename, '.*')
         class_.attributes['filename'] = resolve_filename(filename)
-        class_.attributes['line-rate'] = (file.covered_percent/100).round(2).to_s
-        class_.attributes['branch-rate'] = '0'
+        class_.attributes['line-rate'] = extract_rate(ls.percent)
+        class_.attributes['branch-rate'] = extract_rate(bs.percent)
         class_.attributes['complexity'] = '0'
       end
 
       def set_line_attributes(line, file_line)
         line.attributes['number'] = file_line.line_number.to_s
-        line.attributes['branch'] = 'false'
         line.attributes['hits'] = file_line.coverage.to_s
+      end
+
+      def set_branch_attributes(line, file_line, file_branches)
+        line_branches = file_branches.select { |branch| file_line.line_number == branch.start_line }
+
+        if line_branches.any?
+          branches_count = line_branches.size
+          branches_covered = line_branches.select(&:covered?).size
+          condition_coverage = (100.0 * branches_covered / branches_count).round(2)
+
+          line.attributes['branch'] = 'true'
+          line.attributes['condition-coverage'] = "#{condition_coverage}% (#{branches_covered}/#{branches_count})"
+        else
+          line.attributes['branch'] = 'false'
+        end
       end
 
       def set_xml_head(lines=[])
@@ -116,11 +139,18 @@ module SimpleCov
       end
 
       def coverage_output(result)
-        "#{result.covered_lines} / #{result.covered_lines + result.missed_lines} LOC (#{result.covered_percent.round(2)}%) covered."
+        ls = result.coverage_statistics[:line]
+        bs = result.coverage_statistics[:branch]
+
+        "%d / %d LOC (%.2f%%) covered; %d / %d BC (%.2f%%) covered" % [ls.covered, ls.total, ls.percent, bs.covered, bs.total, bs.percent]
       end
 
       def resolve_filename(filename)
         Pathname.new(filename).relative_path_from(project_root).to_s
+      end
+
+      def extract_rate(percent)
+        (percent / 100).round(2).to_s
       end
 
       def project_root
