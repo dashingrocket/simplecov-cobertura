@@ -48,7 +48,7 @@ module SimpleCov
           groups = result.groups
         end
 
-        groups.map do |name, files|
+        groups.each do |name, files|
           packages.add_element(package = REXML::Element.new('package'))
           set_package_attributes(package, name, files)
 
@@ -65,7 +65,7 @@ module SimpleCov
               if file_line.covered? || file_line.missed?
                 lines.add_element(line = REXML::Element.new('line'))
                 set_line_attributes(line, file_line)
-                set_branch_attributes(line, file_line, file.branches)
+                set_branch_attributes(file, line, file_line)
               end
             end
           end
@@ -116,16 +116,15 @@ module SimpleCov
         line.attributes['hits'] = file_line.coverage.to_s
       end
 
-      def set_branch_attributes(line, file_line, file_branches)
-        line_branches = file_branches.select { |branch| file_line.line_number == branch.start_line }
+      def set_branch_attributes(file, line, file_line)
+        if file.branches_for_line(file_line.number).any?
+          branches = file.branches_for_line(file_line.number)
+          branch_hits_total = branches.count { |_, hit_count|  hit_count.positive? }
 
-        if line_branches.any?
-          branches_count = line_branches.size
-          branches_covered = line_branches.select(&:covered?).size
-          condition_coverage = (100.0 * branches_covered / branches_count).round(2)
+          condition_coverage = (100 * branch_hits_total / branches.size)
 
           line.attributes['branch'] = 'true'
-          line.attributes['condition-coverage'] = "#{condition_coverage}% (#{branches_covered}/#{branches_count})"
+          line.attributes['condition-coverage'] = "#{condition_coverage}% (#{branch_hits_total}/#{branches.size})"
         else
           line.attributes['branch'] = 'false'
         end
