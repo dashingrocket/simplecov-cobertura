@@ -1,14 +1,26 @@
 require 'test/unit'
-
 require 'nokogiri'
-
 require 'open-uri'
 require 'simplecov'
 require 'simplecov-cobertura'
 
 class CoberturaFormatterTest < Test::Unit::TestCase
   def setup
-    @result = SimpleCov::Result.new({ "#{__FILE__}" => [1,2] })
+    SimpleCov.enable_coverage :branch
+    SimpleCov.coverage_dir "tmp"
+    @result = SimpleCov::Result.new({
+      "#{__FILE__}" => {
+        "lines" => [1, 1, 1, nil, 1, nil, 1, 0, nil, 1, nil, nil, nil],
+        "branches" => {
+          [:if, 0, 3, 4, 3, 21] =>
+          {[:then, 1, 3, 4, 3, 10] => 0, [:else, 2, 3, 4, 3, 21] => 1},
+            [:if, 3, 5, 4, 5, 26] =>
+          {[:then, 4, 5, 16, 5, 20] => 1, [:else, 5, 5, 23, 5, 26] => 0},
+            [:if, 6, 7, 4, 11, 7] =>
+          {[:then, 7, 8, 6, 8, 10] => 0, [:else, 8, 10, 6, 10, 9] => 1}
+        }
+      }
+    })
     @formatter = SimpleCov::Formatter::CoberturaFormatter.new
   end
 
@@ -42,12 +54,12 @@ class CoberturaFormatterTest < Test::Unit::TestCase
     doc = Nokogiri::XML::Document.parse(xml)
 
     coverage = doc.xpath '/coverage'
-    assert_equal '1.0', coverage.attribute('line-rate').value
-    assert_equal '0', coverage.attribute('branch-rate').value
-    assert_equal '2', coverage.attribute('lines-covered').value
-    assert_equal '2', coverage.attribute('lines-valid').value
-    assert_equal '0', coverage.attribute('branches-covered').value
-    assert_equal '0', coverage.attribute('branches-valid').value
+    assert_equal '0.86', coverage.attribute('line-rate').value
+    assert_equal '0.5', coverage.attribute('branch-rate').value
+    assert_equal '6', coverage.attribute('lines-covered').value
+    assert_equal '7', coverage.attribute('lines-valid').value
+    assert_equal '3', coverage.attribute('branches-covered').value
+    assert_equal '6', coverage.attribute('branches-valid').value
     assert_equal '0', coverage.attribute('complexity').value
     assert_equal '0', coverage.attribute('version').value
     assert_not_empty coverage.attribute('timestamp').value
@@ -60,8 +72,8 @@ class CoberturaFormatterTest < Test::Unit::TestCase
     assert_equal 1, packages.length
     package = packages.first
     assert_equal 'simplecov-cobertura', package.attribute('name').value
-    assert_equal '1.0', package.attribute('line-rate').value
-    assert_equal '0', package.attribute('branch-rate').value
+    assert_equal '0.86', package.attribute('line-rate').value
+    assert_equal '0.5', package.attribute('branch-rate').value
     assert_equal '0', package.attribute('complexity').value
 
     classes = doc.xpath '/coverage/packages/package/classes/class'
@@ -69,20 +81,20 @@ class CoberturaFormatterTest < Test::Unit::TestCase
     clazz = classes.first
     assert_equal 'simplecov-cobertura_test', clazz.attribute('name').value
     assert_equal 'test/simplecov-cobertura_test.rb', clazz.attribute('filename').value
-    assert_equal '1.0', clazz.attribute('line-rate').value
-    assert_equal '0', clazz.attribute('branch-rate').value
+    assert_equal '0.86', clazz.attribute('line-rate').value
+    assert_equal '0.5', clazz.attribute('branch-rate').value
     assert_equal '0', clazz.attribute('complexity').value
 
     lines = doc.xpath '/coverage/packages/package/classes/class/lines/line'
-    assert_equal 2, lines.length
+    assert_equal 7, lines.length
     first_line = lines.first
     assert_equal '1', first_line.attribute('number').value
     assert_equal 'false', first_line.attribute('branch').value
     assert_equal '1', first_line.attribute('hits').value
     last_line = lines.last
-    assert_equal '2', last_line.attribute('number').value
+    assert_equal '10', last_line.attribute('number').value
     assert_equal 'false', last_line.attribute('branch').value
-    assert_equal '2', last_line.attribute('hits').value
+    assert_equal '1', last_line.attribute('hits').value
   end
 
   def test_groups
@@ -92,12 +104,12 @@ class CoberturaFormatterTest < Test::Unit::TestCase
     doc = Nokogiri::XML::Document.parse(xml)
 
     coverage = doc.xpath '/coverage'
-    assert_equal '1.0', coverage.attribute('line-rate').value
-    assert_equal '0', coverage.attribute('branch-rate').value
-    assert_equal '2', coverage.attribute('lines-covered').value
-    assert_equal '2', coverage.attribute('lines-valid').value
-    assert_equal '0', coverage.attribute('branches-covered').value
-    assert_equal '0', coverage.attribute('branches-valid').value
+    assert_equal '0.86', coverage.attribute('line-rate').value
+    assert_equal '0.5', coverage.attribute('branch-rate').value
+    assert_equal '6', coverage.attribute('lines-covered').value
+    assert_equal '7', coverage.attribute('lines-valid').value
+    assert_equal '3', coverage.attribute('branches-covered').value
+    assert_equal '6', coverage.attribute('branches-valid').value
     assert_equal '0', coverage.attribute('complexity').value
     assert_equal '0', coverage.attribute('version').value
     assert_not_empty coverage.attribute('timestamp').value
@@ -110,8 +122,8 @@ class CoberturaFormatterTest < Test::Unit::TestCase
     assert_equal 1, packages.length
     package = packages.first
     assert_equal 'test_group', package.attribute('name').value
-    assert_equal '1.0', package.attribute('line-rate').value
-    assert_equal '0', package.attribute('branch-rate').value
+    assert_equal '0.86', package.attribute('line-rate').value
+    assert_equal '0.5', package.attribute('branch-rate').value
     assert_equal '0', package.attribute('complexity').value
 
     classes = doc.xpath '/coverage/packages/package/classes/class'
@@ -119,20 +131,20 @@ class CoberturaFormatterTest < Test::Unit::TestCase
     clazz = classes.first
     assert_equal 'simplecov-cobertura_test', clazz.attribute('name').value
     assert_equal 'test/simplecov-cobertura_test.rb', clazz.attribute('filename').value
-    assert_equal '1.0', clazz.attribute('line-rate').value
-    assert_equal '0', clazz.attribute('branch-rate').value
+    assert_equal '0.86', clazz.attribute('line-rate').value
+    assert_equal '0.5', clazz.attribute('branch-rate').value
     assert_equal '0', clazz.attribute('complexity').value
 
     lines = doc.xpath '/coverage/packages/package/classes/class/lines/line'
-    assert_equal 2, lines.length
+    assert_equal 7, lines.length
     first_line = lines.first
     assert_equal '1', first_line.attribute('number').value
     assert_equal 'false', first_line.attribute('branch').value
     assert_equal '1', first_line.attribute('hits').value
     last_line = lines.last
-    assert_equal '2', last_line.attribute('number').value
+    assert_equal '10', last_line.attribute('number').value
     assert_equal 'false', last_line.attribute('branch').value
-    assert_equal '2', last_line.attribute('hits').value
+    assert_equal '1', last_line.attribute('hits').value
   end
 
   def test_supports_root_project_path
