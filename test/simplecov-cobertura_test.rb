@@ -93,7 +93,7 @@ class CoberturaFormatterTest < Test::Unit::TestCase
     assert_equal '1', first_line.attribute('hits').value
     last_line = lines.last
     assert_equal '10', last_line.attribute('number').value
-    assert_equal 'false', last_line.attribute('branch').value
+    assert_equal 'true', last_line.attribute('branch').value
     assert_equal '1', last_line.attribute('hits').value
   end
 
@@ -143,7 +143,7 @@ class CoberturaFormatterTest < Test::Unit::TestCase
     assert_equal '1', first_line.attribute('hits').value
     last_line = lines.last
     assert_equal '10', last_line.attribute('number').value
-    assert_equal 'false', last_line.attribute('branch').value
+    assert_equal 'true', last_line.attribute('branch').value
     assert_equal '1', last_line.attribute('hits').value
   end
 
