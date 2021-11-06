@@ -33,4 +33,6 @@ Gem::Specification.new do |spec|
   else
     spec.add_development_dependency 'rake', '~> 13.0'
   end
+
+  spec.add_dependency 'rexml'
 end
