@@ -8,7 +8,13 @@ require 'simplecov-cobertura'
 
 class CoberturaFormatterTest < Test::Unit::TestCase
   def setup
-    @result = SimpleCov::Result.new({ "#{__FILE__}" => [1,2] })
+    result_data = if RUBY_VERSION >= "2.5"
+                    { "#{__FILE__}" => { "lines" => [1,2] }}
+                  else
+                    { "#{__FILE__}" => [1,2] }
+                  end
+
+    @result = SimpleCov::Result.new(result_data)
     @formatter = SimpleCov::Formatter::CoberturaFormatter.new
   end
 
