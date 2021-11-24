@@ -40,18 +40,6 @@ Tested in a CI environment against the following Ruby versions:
 ## Known Limitations
 * No support for branch coverage
 
-## Contributors
-  * Jesse Bowes
-  * Sean Clemmer
-  * Ivailo Petrov
-  * Rob Lester
-  * Denis <Zaratan> Pasin
-  * Jesper Rønn-Jensen
-  * Pramod Shinde
-  * Magnus Bergmark
-  * Peter Leitzen
-  * Stan Lo
-
 ## Contributing
 
 1. Fork it ( https://github.com/dashingrocket/simplecov-cobertura/fork )
