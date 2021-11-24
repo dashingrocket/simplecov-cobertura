@@ -37,9 +37,6 @@ Tested in a CI environment against the following Ruby versions:
 * 2.6
 * 2.5
 
-## Known Limitations
-* No support for branch coverage
-
 ## Contributing
 
 1. Fork it ( https://github.com/dashingrocket/simplecov-cobertura/fork )
