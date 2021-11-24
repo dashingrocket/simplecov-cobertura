@@ -8,7 +8,13 @@ require 'simplecov-cobertura'
 
 class CoberturaFormatterTest < Test::Unit::TestCase
   def setup
-    @result = SimpleCov::Result.new({ "#{__FILE__}" => [1,2] })
+    result_data = if RUBY_VERSION >= "2.5"
+                    { "#{__FILE__}" => { "lines" => [1,2] }}
+                  else
+                    { "#{__FILE__}" => [1,2] }
+                  end
+
+    @result = SimpleCov::Result.new(result_data)
     @formatter = SimpleCov::Formatter::CoberturaFormatter.new
   end
 
@@ -137,7 +143,7 @@ class CoberturaFormatterTest < Test::Unit::TestCase
 
   def test_supports_root_project_path
     old_root = SimpleCov.root
-    SimpleCov.root('/')
+    SimpleCov.root("/tmp")
     expected_base = old_root[1..-1] # Remove leading "/"
 
     xml = @formatter.format(@result)
@@ -147,7 +153,7 @@ class CoberturaFormatterTest < Test::Unit::TestCase
     assert_equal 1, classes.length
     clazz = classes.first
     assert_equal 'simplecov-cobertura_test', clazz.attribute('name').value
-    assert_equal "#{expected_base}/test/simplecov-cobertura_test.rb", clazz.attribute('filename').value
+    assert_equal "../#{expected_base}/test/simplecov-cobertura_test.rb", clazz.attribute('filename').value
   ensure
     SimpleCov.root(old_root)
   end
