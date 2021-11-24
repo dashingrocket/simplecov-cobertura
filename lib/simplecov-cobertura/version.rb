@@ -1,7 +1,7 @@
 module SimpleCov
   module Formatter
     class CoberturaFormatter
-      VERSION = '1.4.3-dev'
+      VERSION = '2.0.0-dev'
     end
   end
 end
