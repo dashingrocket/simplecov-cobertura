@@ -1,5 +1,3 @@
-require 'simplecov'
-
 require 'rexml/document'
 require 'rexml/element'
 require 'pathname'
