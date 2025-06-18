@@ -45,7 +45,7 @@ class CoberturaFormatterTest < Test::Unit::TestCase
   def test_terminal_output
     output, _ = capture_output { @formatter.format(@result) }
     result_path = File.join(SimpleCov.coverage_path, SimpleCov::Formatter::CoberturaFormatter::RESULT_FILE_NAME)
-    output_regex = /Coverage report generated for #{@result.command_name} to #{result_path}. (.*) covered./
+    output_regex = /Coverage report generated for #{@result.command_name} to #{result_path}.\nLine Coverage: (.*)\nBranch Coverage: (.*)/
     assert_match(output_regex, output)
   end
 

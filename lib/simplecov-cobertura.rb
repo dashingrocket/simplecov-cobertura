@@ -25,7 +25,8 @@ module SimpleCov
 
         xml_str = string_io.string
         File.write(result_path, xml_str)
-        puts "Coverage report generated for #{result.command_name} to #{result_path}. #{coverage_output(result)}"
+        puts output_message(result, result_path)
+
         xml_str
       end
 
@@ -146,16 +147,13 @@ module SimpleCov
           lines.join("\n")
         end
 
-        def coverage_output(result)
-          ls = result.coverage_statistics[:line]
-          bs = result.coverage_statistics[:branch]
-
-          if SimpleCov.branch_coverage?
-            "%d / %d LOC (%.2f%%) covered; %d / %d BC (%.2f%%) covered" % [ls.covered, ls.total, ls.percent, bs.covered, bs.total, bs.percent]
-          else
-            "%d / %d LOC (%.2f%%) covered" % [ls.covered, ls.total, ls.percent]
-          end
-        end
+      # Roughly mirrors private method SimpleCov::Formatter::HTMLFormatter#output_coverage
+      def output_message(result, output_path)
+        output = "Coverage report generated for #{result.command_name} to #{output_path}."
+        output += "\nLine Coverage: #{result.covered_percent.round(2)}% (#{result.covered_lines} / #{result.total_lines})"
+        output += "\nBranch Coverage: #{result.coverage_statistics[:branch].percent.round(2)}% (#{result.covered_branches} / #{result.total_branches})" if SimpleCov.branch_coverage?
+        output
+      end
 
         def resolve_filename(filename)
           Pathname.new(filename).relative_path_from(project_root).to_s
