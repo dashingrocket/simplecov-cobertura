@@ -1,5 +1,5 @@
 # simplecov-cobertura 
-[![Build](https://github.com/dashingrocket/simplecov-cobertura/actions/workflows/build.yml/badge.svg)](https://github.com/dashingrocket/simplecov-cobertura/actions/workflows/build.yml)   [![Gem Version](https://badge.fury.io/rb/simplecov-cobertura.svg)](http://badge.fury.io/rb/simplecov-cobertura)  [![Downloads](http://ruby-gem-downloads-badge.herokuapp.com/simplecov-cobertura?type=total)](https://rubygems.org/gems/simplecov-cobertura)
+[![Build](https://github.com/dashingrocket/simplecov-cobertura/actions/workflows/build.yml/badge.svg)](https://github.com/dashingrocket/simplecov-cobertura/actions/workflows/build.yml)   [![Gem Version](https://badge.fury.io/rb/simplecov-cobertura.svg)](http://badge.fury.io/rb/simplecov-cobertura)
 
 
 Produces [Cobertura](http://cobertura.sourceforge.net/) formatted XML from [SimpleCov](https://github.com/colszowka/simplecov).
