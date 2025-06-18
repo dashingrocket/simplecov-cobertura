@@ -90,7 +90,7 @@ class CoberturaFormatterTest < Test::Unit::TestCase
     classes = doc.xpath '/coverage/packages/package/classes/class'
     assert_equal 1, classes.length
     clazz = classes.first
-    assert_equal 'simplecov-cobertura_test', clazz.attribute('name').value
+    assert_equal 'test/simplecov-cobertura_test.rb', clazz.attribute('name').value
     assert_equal 'test/simplecov-cobertura_test.rb', clazz.attribute('filename').value
     assert_equal '0.86', clazz.attribute('line-rate').value
     assert_equal '0.5', clazz.attribute('branch-rate').value
@@ -140,7 +140,7 @@ class CoberturaFormatterTest < Test::Unit::TestCase
     classes = doc.xpath '/coverage/packages/package/classes/class'
     assert_equal 1, classes.length
     clazz = classes.first
-    assert_equal 'simplecov-cobertura_test', clazz.attribute('name').value
+    assert_equal 'test/simplecov-cobertura_test.rb', clazz.attribute('name').value
     assert_equal 'test/simplecov-cobertura_test.rb', clazz.attribute('filename').value
     assert_equal '0.86', clazz.attribute('line-rate').value
     assert_equal '0.5', clazz.attribute('branch-rate').value
@@ -169,7 +169,7 @@ class CoberturaFormatterTest < Test::Unit::TestCase
     classes = doc.xpath '/coverage/packages/package/classes/class'
     assert_equal 1, classes.length
     clazz = classes.first
-    assert_equal 'simplecov-cobertura_test', clazz.attribute('name').value
+    assert_equal "../#{expected_base}/test/simplecov-cobertura_test.rb", clazz.attribute('name').value
     assert_equal "../#{expected_base}/test/simplecov-cobertura_test.rb", clazz.attribute('filename').value
   ensure
     SimpleCov.root(old_root)
