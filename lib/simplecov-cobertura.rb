@@ -116,7 +116,7 @@ module SimpleCov
           bs = file.coverage_statistics[:branch]
 
           filename = file.filename
-          class_.attributes['name'] = File.basename(filename, '.*')
+          class_.attributes['name'] = resolve_filename(filename)
           class_.attributes['filename'] = resolve_filename(filename)
           class_.attributes['line-rate'] = extract_rate(ls.percent)
           if SimpleCov.branch_coverage?
