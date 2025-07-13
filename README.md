@@ -33,21 +33,19 @@ SimpleCov.formatter = SimpleCov::Formatter::CoberturaFormatter
 
 ## Continuous Integration
 Tested in a CI environment against the following Ruby versions:
-* 3.0
-* 2.7
-* 2.6
-* 2.5
+* 3.0 - 3.4
+* 2.5 - 2.7
 
 ## Contributing
 
-1. Fork it ( https://github.com/dashingrocket/simplecov-cobertura/fork )
+1. Fork it ( https://github.com/jessebs/simplecov-cobertura/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
 
 ## License
-Copyright 2021 Dashing Rocket, Ltd.
+Copyright 2025 Jesse Bowes
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

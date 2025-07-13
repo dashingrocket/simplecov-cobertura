@@ -8,10 +8,10 @@ Gem::Specification.new do |spec|
   spec.name          = 'simplecov-cobertura'
   spec.version       = SimpleCov::Formatter::CoberturaFormatter::VERSION
   spec.authors       = ['Jesse Bowes']
-  spec.email         = ['jbowes@dashingrocket.com']
+  spec.email         = ['jessebowes@acm.org']
   spec.summary       = 'SimpleCov Cobertura Formatter'
   spec.description   = 'Produces Cobertura XML formatted output from SimpleCov'
-  spec.homepage      = 'https://github.com/dashingrocket/simplecov-cobertura'
+  spec.homepage      = 'https://github.com/jessebs/simplecov-cobertura'
   spec.license       = 'Apache-2.0'
   spec.required_ruby_version = '>= 2.5.0'
 
